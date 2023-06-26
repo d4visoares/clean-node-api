@@ -2,5 +2,8 @@
   "name": "clean",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "git-commit-msg-linter": "^5.0.4"
+  }
 }
