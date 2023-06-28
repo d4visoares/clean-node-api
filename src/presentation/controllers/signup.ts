@@ -32,7 +32,7 @@ export class SignUpController implements Controller {
 
       return badRequest(new MissingParamError('phone'));
     } catch (error) {
-      return serverError(new ServerError());
+      return serverError();
     }
   }
 }
