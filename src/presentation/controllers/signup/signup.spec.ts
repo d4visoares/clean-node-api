@@ -1,8 +1,17 @@
 import { SignUpController } from './signup';
-import { InvalidParamError, MissingParamError, ServerError } from '../errors';
-import { EmailValidator } from '../protocols';
-import { AddAccount, AddAccountModel } from '@/domain/usecases';
-import { AccountModel } from '@/domain/models';
+
+import {
+  InvalidParamError,
+  MissingParamError,
+  ServerError,
+} from '@/presentation/errors';
+
+import {
+  AccountModel,
+  EmailValidator,
+  AddAccount,
+  AddAccountModel,
+} from './signup-protocols';
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
