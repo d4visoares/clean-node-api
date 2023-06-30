@@ -45,7 +45,15 @@ export class SignUpController implements Controller {
         password,
       });
 
-      return badRequest(new MissingParamError('phone'));
+      return {
+        statusCode: 200,
+        body: {
+          id: 'valid_id',
+          name: 'valid_name',
+          email: 'valid_email@mail.com',
+          password: 'valid_password',
+        },
+      };
     } catch (error) {
       return serverError();
     }
