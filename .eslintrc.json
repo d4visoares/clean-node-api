@@ -19,6 +19,7 @@
   "rules": {
     "no-unreachable-loop": "off",
     "max-classes-per-file": "off",
+    "import/no-extraneous-dependencies": "off",
     "no-labels": "off",
     "no-unused-labels": "off",
     "no-underscore-dangle": "off",
