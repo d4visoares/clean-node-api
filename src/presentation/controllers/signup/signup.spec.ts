@@ -1,11 +1,9 @@
-import { SignUpController } from './signup';
-
 import {
   InvalidParamError,
   MissingParamError,
   ServerError,
 } from '../../errors';
-
+import { SignUpController } from './signup';
 import {
   AccountModel,
   EmailValidator,
@@ -215,7 +213,7 @@ describe('SignUp Controller', () => {
     const { sut, addAccountStub } = makeSut();
 
     jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
-      return new Promise((_, reject) => reject(new Error()));
+      throw new Error();
     });
 
     const httpRequest = {

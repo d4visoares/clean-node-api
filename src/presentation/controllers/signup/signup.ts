@@ -1,14 +1,13 @@
 import { AddAccount } from '@/domain/usecases';
-import { InvalidParamError, MissingParamError } from '../../errors';
 
+import { InvalidParamError, MissingParamError } from '../../errors';
+import { badRequest, ok, serverError } from '../../utils';
 import {
   HttpRequest,
   HttpResponse,
   Controller,
   EmailValidator,
 } from './signup-protocols';
-
-import { badRequest, ok, serverError } from '../../utils';
 
 export class SignUpController implements Controller {
   constructor(
@@ -30,7 +29,8 @@ export class SignUpController implements Controller {
           return badRequest(new MissingParamError(field));
       }
 
-      const { name, email, password, passwordConfirmation } = httpRequest.body;
+      const { name, email, password, passwordConfirmation, test } =
+        httpRequest.body;
 
       if (password !== passwordConfirmation)
         return badRequest(new InvalidParamError('passwordConfirmation'));
