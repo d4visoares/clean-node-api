@@ -8,7 +8,7 @@ import {
   EmailValidator,
 } from './signup-protocols';
 
-import { badRequest, serverError } from '../../utils';
+import { badRequest, ok, serverError } from '../../utils';
 
 export class SignUpController implements Controller {
   constructor(
@@ -39,21 +39,13 @@ export class SignUpController implements Controller {
 
       if (!emailIsValid) return badRequest(new InvalidParamError('email'));
 
-      this.addAccount.add({
+      const account = this.addAccount.add({
         name,
         email,
         password,
       });
 
-      return {
-        statusCode: 200,
-        body: {
-          id: 'valid_id',
-          name: 'valid_name',
-          email: 'valid_email@mail.com',
-          password: 'valid_password',
-        },
-      };
+      return ok(account);
     } catch (error) {
       return serverError();
     }
