@@ -17,17 +17,12 @@ export class DbAddAccount implements AddAccount {
       accountData.password
     );
 
-    await this.addAccountRepository.add({
+    const account = await this.addAccountRepository.add({
       email: accountData.email,
       name: accountData.name,
       password: encryptedPassword,
     });
 
-    return {
-      id: 'valid_id',
-      name: 'valid_name',
-      email: 'valid_email',
-      password: 'valid_password',
-    };
+    return account;
   }
 }
