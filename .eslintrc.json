@@ -17,6 +17,7 @@
   },
   "plugins": ["@typescript-eslint", "eslint-plugin-import-helpers", "prettier"],
   "rules": {
+    "no-promise-executor-return": "off",
     "no-unreachable-loop": "off",
     "max-classes-per-file": "off",
     "import/no-extraneous-dependencies": "off",
