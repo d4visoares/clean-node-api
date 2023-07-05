@@ -37,7 +37,7 @@
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test -- --watch -c jest-unit-config.js",
     "test:integration": "yarn test -- --watch -c jest-integration-config.js",
-    "test:staged": "yarn test -- --findRelatedTests",
+    "test:staged": "yarn test -- --detectOpenHandles",
     "test:ci": "yarn test -- --coverage"
   }
 }

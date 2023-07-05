@@ -3908,6 +3908,11 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
+libcrypto@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/libcrypto/-/libcrypto-0.0.1.tgz#9490e65f8608adcd9404eebef51589ad2cbcd349"
+  integrity sha512-eShZwdne7D2usle17Bb/alIT2WpC7/TQHbKoEUXcUdfHWDjcgZSHoW3iDNbmEeL0VO9NKnEA2CbA6KSlb2LQNw==
+
 lilconfig@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.1.0.tgz#78e23ac89ebb7e1bfbf25b18043de756548e7f52"
