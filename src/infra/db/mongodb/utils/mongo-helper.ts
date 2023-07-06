@@ -8,7 +8,7 @@ export class MongoHelper {
     this.client = null;
   }
 
-  public static getInstance(): MongoHelper {
+  static getInstance(): MongoHelper {
     if (!this.instance) {
       this.instance = new MongoHelper();
     }
@@ -30,5 +30,14 @@ export class MongoHelper {
     if (!this.client) return;
 
     return this.client.db().collection(name);
+  }
+
+  map(collection: any): any {
+    const { _id, ...collectionWithoutId } = collection;
+
+    return {
+      id: _id,
+      ...collectionWithoutId,
+    };
   }
 }

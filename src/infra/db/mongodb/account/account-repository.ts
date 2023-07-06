@@ -12,14 +12,9 @@ export class AccountMongoRepository implements AddAccountRepository {
 
     if (!accountCollection) throw new Error('COLLECTION_NOT_FOUND');
 
-    const record = await accountCollection.insertOne({
-      ...accountData,
-    });
+    await accountCollection.insertOne(accountData);
 
-    const account = {
-      id: record.insertedId.toString(),
-      ...accountData,
-    };
+    const account = mongoHelper.map(accountData);
 
     return account;
   }
