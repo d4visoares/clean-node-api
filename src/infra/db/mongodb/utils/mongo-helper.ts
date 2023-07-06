@@ -11,7 +11,6 @@ export class MongoHelper {
   public static getInstance(): MongoHelper {
     if (!this.instance) {
       this.instance = new MongoHelper();
-      this.instance.connect(process.env.MONGO_URL || '');
     }
 
     return this.instance;
