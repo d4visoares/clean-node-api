@@ -1,5 +1,5 @@
 const config = require('./jest.config');
 
-config.testMatch = ['**/*.integration.ts'];
+config.testMatch = ['**/*.test.ts'];
 
 module.exports = config;
