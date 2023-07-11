@@ -1,0 +1,10 @@
+###
+
+POST http://localhost:3000/api/signup
+
+{
+    "name": "Davi",
+    "email": "davi@mail.com",
+    "password": "123",
+    "passwordConfirmation": "123"
+}
