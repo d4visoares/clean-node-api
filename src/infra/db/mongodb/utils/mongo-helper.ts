@@ -17,17 +17,18 @@ export class MongoHelper {
   }
 
   async connect(uri: string) {
-    this.client = await MongoClient.connect(uri || '');
+    this.client = await MongoClient.connect(uri);
   }
 
   async disconnect() {
-    if (!this.client) return;
+    if (!this.client) throw new Error('MISSING_CLIENT');
 
     await this.client.close();
+    this.client = null;
   }
 
   async getCollection(name: string): Promise<Collection | undefined> {
-    if (!this.client) return;
+    if (!this.client) throw new Error('MISSING_CLIENT');
 
     return this.client.db().collection(name);
   }

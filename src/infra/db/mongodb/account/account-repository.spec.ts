@@ -38,4 +38,20 @@ describe('Account Mongo Repository', () => {
     expect(account.email).toBe('valid_email@mail.com');
     expect(account.password).toBe('valid_password');
   });
+
+  test('Should throws if mongoHelper get collection returns undefined', async () => {
+    const sut = makeSut();
+
+    jest
+      .spyOn(mongoHelper, 'getCollection')
+      .mockReturnValueOnce(new Promise((resolve) => resolve(undefined)));
+
+    const promise = sut.add({
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password',
+    });
+
+    expect(promise).rejects.toThrow();
+  });
 });
