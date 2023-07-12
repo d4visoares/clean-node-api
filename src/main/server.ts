@@ -1,3 +1,14 @@
+import { MongoHelper } from '../infra/db/mongodb/utils';
+import { MONGO, SERVER } from '../utils/constants';
 import app from './config/app';
 
-app.listen(3000, () => console.log('Server is running on port: 3000'));
+const mongoHelper = MongoHelper.getInstance();
+
+mongoHelper
+  .connect(MONGO.URL)
+  .then(() => {
+    app.listen(SERVER.PORT, () =>
+      console.log(`Server is running on port: ${SERVER.PORT}`)
+    );
+  })
+  .catch(console.error);

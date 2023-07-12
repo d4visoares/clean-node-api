@@ -1,13 +1,14 @@
 import request from 'supertest';
 
 import { MongoHelper } from '../../infra/db/mongodb/utils';
+import { MONGO } from '../../utils/constants';
 import app from '../config/app';
 
 describe('SignUp Routes', () => {
   const mongoHelper = MongoHelper.getInstance();
 
   beforeAll(async () => {
-    await mongoHelper.connect(process.env.MONGO_URL || '');
+    await mongoHelper.connect(MONGO.URL);
   });
 
   afterAll(async () => {

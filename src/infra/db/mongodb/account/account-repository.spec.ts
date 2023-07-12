@@ -1,3 +1,4 @@
+import { MONGO } from '../../../../utils/constants';
 import { MongoHelper } from '../utils';
 import { AccountMongoRepository } from './account-repository';
 
@@ -5,7 +6,7 @@ describe('Account Mongo Repository', () => {
   const mongoHelper = MongoHelper.getInstance();
 
   beforeAll(async () => {
-    await mongoHelper.connect(process.env.MONGO_URL || '');
+    await mongoHelper.connect(MONGO.URL);
   });
 
   afterAll(async () => {
