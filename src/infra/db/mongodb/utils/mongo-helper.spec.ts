@@ -1,36 +1,24 @@
 import { MONGO } from '../../../../utils/constants';
 import { MongoHelper } from './mongo-helper';
 
-const makeSut = () => MongoHelper.getInstance();
+const sut = MongoHelper.getInstance();
 
 describe('MongoHelper', () => {
-  test('Should calls connect with correct uri', async () => {
-    const mongoHelper = makeSut();
-
-    const connectSpy = jest.spyOn(mongoHelper, 'connect');
-
-    await mongoHelper.connect(MONGO.URL);
-
-    expect(connectSpy).toHaveBeenCalledWith(MONGO.URL);
-
-    await mongoHelper.disconnect();
+  beforeAll(async () => {
+    await sut.connect(MONGO.URL);
   });
 
-  test('Should throws when call disconnect before connect ', () => {
-    const mongoHelper = makeSut();
-
-    const promise = mongoHelper.disconnect();
-
-    expect(promise).rejects.toThrow();
+  afterAll(async () => {
+    await sut.disconnect();
   });
 
-  test('Should throws when call getCollection before connect ', async () => {
-    const mongoHelper = makeSut();
+  test('Should reconnect if mongodb is down', async () => {
+    const anyCollection = await sut.getCollection('any_collection');
+    expect(anyCollection).toBeTruthy();
 
-    const promise = mongoHelper.getCollection('any_collection');
+    await sut.disconnect();
 
-    expect(promise).rejects.toThrow();
+    const otherCollection = await sut.getCollection('other_collection');
+    expect(otherCollection).toBeTruthy();
   });
-
-  test('', () => {});
 });
