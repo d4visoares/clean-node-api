@@ -1,6 +1,9 @@
 import { DbAddAccount } from '../../data/usecases';
 import { BcryptAdapter } from '../../infra/cryptography';
-import { AccountMongoRepository } from '../../infra/db/mongodb';
+import {
+  AccountMongoRepository,
+  LogMongoRepository,
+} from '../../infra/db/mongodb';
 import { SignUpController } from '../../presentation/controllers';
 import { EmailValidatorAdapter } from '../../utils/adapters';
 import { LogControllerDecorator } from '../decorators';
@@ -18,5 +21,5 @@ export const makeSignUpController = () => {
     dbAddAccount
   );
 
-  return new LogControllerDecorator(signupController);
+  return new LogControllerDecorator(signupController, new LogMongoRepository());
 };

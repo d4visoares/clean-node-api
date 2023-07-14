@@ -5,5 +5,5 @@ export const SERVER = {
 export const MONGO = {
   URL:
     process.env.MONGO_URL ||
-    'mongodb+srv://soares:JHRDpGjV60iHJueZ@cluster.5if2c3x.mongodb.net/?retryWrites=true&w=majority',
+    'mongodb+srv://guest:guest@study.pivfxid.mongodb.net/?retryWrites=true&w=majority',
 };
