@@ -4,6 +4,8 @@ import { MONGO } from '../../../../utils/constants';
 import { MongoHelper } from '../utils';
 import { LogMongoRepository } from './log-repository';
 
+const makeSut = () => new LogMongoRepository();
+
 describe('Log Mongo Repository', () => {
   let errorsCollection: Collection | undefined;
 
@@ -23,7 +25,7 @@ describe('Log Mongo Repository', () => {
   });
 
   test('Should create an error log on success', async () => {
-    const sut = new LogMongoRepository();
+    const sut = makeSut();
 
     await sut.logError('any_error');
 
