@@ -1,4 +1,8 @@
-import { RequiredFieldsValidation, ValidationComposite } from '@/presentation';
+import {
+  CompareFieldsValidation,
+  RequiredFieldsValidation,
+  ValidationComposite,
+} from '@/presentation';
 
 import { makeSignUpValidation } from './signup-validation';
 
@@ -17,6 +21,7 @@ describe('SingUpValidation Factory', () => {
 
     expect(ValidationComposite).toHaveBeenCalledWith([
       new RequiredFieldsValidation(requiredFields),
+      new CompareFieldsValidation('password', 'passwordConfirmation'),
     ]);
   });
 });
