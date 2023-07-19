@@ -6,8 +6,13 @@ import {
   unauthorized,
 } from '@/presentation/utils';
 
-import { Controller, HttpRequest, HttpResponse } from '../../protocols';
-import { Authentication, EmailValidator } from './login-protocols';
+import {
+  Authentication,
+  EmailValidator,
+  Controller,
+  HttpRequest,
+  HttpResponse,
+} from './login-protocols';
 
 export class LoginController implements Controller {
   constructor(
