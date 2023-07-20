@@ -8,7 +8,9 @@ export class LogMongoRepository implements LogErrorRepository {
 
     const errorCollection = await mongoHelper.getCollection('errors');
 
-    errorCollection?.insertOne({
+    if (!errorCollection) throw new Error('COLLECTION_NOT_FOUND');
+
+    errorCollection.insertOne({
       stack,
       date: new Date(),
     });
