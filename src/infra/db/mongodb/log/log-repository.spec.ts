@@ -33,4 +33,16 @@ describe('Log Mongo Repository', () => {
 
     expect(count).toBe(1);
   });
+
+  test('Should throw an error if error collection is not found', () => {
+    const sut = makeSut();
+
+    jest
+      .spyOn(mongoHelper, 'getCollection')
+      .mockReturnValueOnce(new Promise((resolve) => resolve(undefined)));
+
+    const promise = sut.logError('any_error');
+
+    expect(promise).rejects.toThrow();
+  });
 });
