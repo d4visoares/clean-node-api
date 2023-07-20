@@ -1,2 +1,2 @@
-export * from './responses';
+export * from './http';
 export * from './validators';
