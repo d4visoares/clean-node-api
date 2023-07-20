@@ -8,7 +8,11 @@ import {
 } from '@/presentation/utils';
 
 import { LoginController } from './login';
-import { Authentication, HttpRequest } from './login-protocols';
+import {
+  Authentication,
+  AuthenticationModel,
+  HttpRequest,
+} from './login-protocols';
 
 interface SutTypes {
   sut: LoginController;
@@ -27,7 +31,7 @@ const makeFakeRequest = (): HttpRequest => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(email: string, password: string): Promise<string | null> {
+    async auth(authentication: AuthenticationModel): Promise<string | null> {
       return new Promise((resolve) => resolve('any_token'));
     }
   }
@@ -44,6 +48,11 @@ const makeValidation = (): Validation => {
 
   return new ValidationStub();
 };
+
+export const makeFakeAuthentication = () => ({
+  email: 'any_email@mail.com',
+  password: 'any_password',
+});
 
 const makeSut = (): SutTypes => {
   const authenticationStub = makeAuthentication();
@@ -64,7 +73,7 @@ describe('Login Controller', () => {
 
     await sut.handle(makeFakeRequest());
 
-    expect(authSpy).toHaveBeenCalledWith('any_email@mail.com', 'any_password');
+    expect(authSpy).toHaveBeenCalledWith(makeFakeAuthentication());
   });
 
   test('Should return 401 if invalid credentials are provided', async () => {
