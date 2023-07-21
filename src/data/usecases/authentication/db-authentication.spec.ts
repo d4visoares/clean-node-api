@@ -1,11 +1,11 @@
-import { HashComparer, TokenGenerator } from '@/data/protocols/cryptography';
-import {
-  LoadAccountByEmailRepository,
-  UpdateAccessTokenRepository,
-} from '@/data/protocols/db';
-
-import { AccountModel } from '../account/db-add-account-protocols';
 import { DbAuthentication } from './db-authentication';
+import {
+  AccountModel,
+  HashComparer,
+  LoadAccountByEmailRepository,
+  TokenGenerator,
+  UpdateAccessTokenRepository,
+} from './db-authentication-protocols';
 
 interface SutTypes {
   sut: DbAuthentication;
