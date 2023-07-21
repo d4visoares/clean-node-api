@@ -1,4 +1,4 @@
-import { HashComparer } from '@/data/protocols/cryptography';
+import { HashComparer, TokenGenerator } from '@/data/protocols/cryptography';
 import { LoadAccountByEmailRepository } from '@/data/protocols/db';
 
 import { AccountModel } from '../account/db-add-account-protocols';
@@ -8,6 +8,7 @@ interface SutTypes {
   sut: DbAuthentication;
   accountRepositoryStub: LoadAccountByEmailRepository;
   hashComparerStub: HashComparer;
+  tokenGeneratorStub: TokenGenerator;
 }
 
 const makeFakeAccount = () => ({
@@ -21,6 +22,16 @@ const makeAuthentication = () => ({
   email: 'any_email@mail.com',
   password: 'any_password',
 });
+
+const makeTokenGenerator = () => {
+  class TokenGeneratorStub implements TokenGenerator {
+    async generate(id: string): Promise<string> {
+      return new Promise((resolve) => resolve('any_token'));
+    }
+  }
+
+  return new TokenGeneratorStub();
+};
 
 const makeHashComparer = () => {
   class HashComparerStub implements HashComparer {
@@ -45,11 +56,18 @@ const makeAccountRepository = () => {
 const makeSut = (): SutTypes => {
   const accountRepositoryStub = makeAccountRepository();
   const hashComparerStub = makeHashComparer();
-
-  return {
-    sut: new DbAuthentication(accountRepositoryStub, hashComparerStub),
+  const tokenGeneratorStub = makeTokenGenerator();
+  const sut = new DbAuthentication(
     accountRepositoryStub,
     hashComparerStub,
+    tokenGeneratorStub
+  );
+
+  return {
+    sut,
+    accountRepositoryStub,
+    hashComparerStub,
+    tokenGeneratorStub,
   };
 };
 
@@ -76,7 +94,7 @@ describe('DbAuthentication UseCase', () => {
     expect(promise).rejects.toThrow();
   });
 
-  test('Should return null if LoadAccountByEmailRepository returns null', async () => {
+  test('Should returns null if LoadAccountByEmailRepository returns null', async () => {
     const { sut, accountRepositoryStub } = makeSut();
 
     jest
@@ -110,7 +128,7 @@ describe('DbAuthentication UseCase', () => {
     expect(promise).rejects.toThrow();
   });
 
-  test('Should return null if HashComparer returns false', async () => {
+  test('Should returns null if HashComparer returns false', async () => {
     const { sut, hashComparerStub } = makeSut();
 
     jest
@@ -120,5 +138,15 @@ describe('DbAuthentication UseCase', () => {
     const accessToken = await sut.auth(makeAuthentication());
 
     expect(accessToken).toBeNull();
+  });
+
+  test('Should call TokenGenerator with correct id', async () => {
+    const { sut, tokenGeneratorStub } = makeSut();
+
+    const generateSpy = jest.spyOn(tokenGeneratorStub, 'generate');
+
+    await sut.auth(makeAuthentication());
+
+    expect(generateSpy).toHaveBeenCalledWith('any_id');
   });
 });
