@@ -4,9 +4,9 @@ import bcrypt from 'bcrypt';
 export class BcryptAdapter implements Hasher, HashComparer {
   constructor(private readonly salt: number) {}
   async compare(value: string, hash: string): Promise<boolean> {
-    await bcrypt.compare(value, hash);
+    const isValid = await bcrypt.compare(value, hash);
 
-    return true;
+    return isValid;
   }
 
   async hash(value: string): Promise<string> {
