@@ -3,7 +3,6 @@ import { BcryptAdapter } from '@/infra/cryptography';
 import { AccountMongoRepository, LogMongoRepository } from '@/infra/db/mongodb';
 import { LogControllerDecorator } from '@/main/decorators';
 import { SignUpController } from '@/presentation/controllers';
-import { EmailValidatorAdapter } from '@/utils/adapters';
 
 import { makeSignUpValidation } from './signup-validation';
 
