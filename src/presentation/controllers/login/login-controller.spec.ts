@@ -7,12 +7,12 @@ import {
   unauthorized,
 } from '@/presentation/utils';
 
-import { LoginController } from './login';
+import { LoginController } from './login-controller';
 import {
   Authentication,
   AuthenticationModel,
   HttpRequest,
-} from './login-protocols';
+} from './login-controller-protocols';
 
 interface SutTypes {
   sut: LoginController;
