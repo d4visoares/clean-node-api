@@ -34,12 +34,14 @@ describe('Log Mongo Repository', () => {
     expect(count).toBe(1);
   });
 
-  test('Should throw an error if error collection is not found', () => {
+  test('Should throw if error getColletion throws', () => {
     const sut = makeSut();
 
     jest
       .spyOn(mongoHelper, 'getCollection')
-      .mockReturnValueOnce(new Promise((resolve) => resolve(undefined)));
+      .mockReturnValueOnce(
+        new Promise((_, reject) => reject(new Error('MISSING_COLLECTION')))
+      );
 
     const promise = sut.logError('any_error');
 

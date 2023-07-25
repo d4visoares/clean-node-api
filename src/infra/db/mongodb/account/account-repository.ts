@@ -19,8 +19,6 @@ export class AccountMongoRepository
   async updateAccessToken(id: string, token: string): Promise<void> {
     const accountCollection = await mongoHelper.getCollection('accounts');
 
-    if (!accountCollection) throw new Error('COLLECTION_NOT_FOUND');
-
     await accountCollection.updateOne(
       {
         _id: mongoHelper.objectId(id),
@@ -36,8 +34,6 @@ export class AccountMongoRepository
   async loadByEmail(email: string): Promise<AccountModel | null> {
     const accountCollection = await mongoHelper.getCollection('accounts');
 
-    if (!accountCollection) throw new Error('COLLECTION_NOT_FOUND');
-
     const loadedAccount = await accountCollection.findOne({ email });
 
     if (!loadedAccount) return null;
@@ -49,8 +45,6 @@ export class AccountMongoRepository
 
   async add(accountData: AddAccountModel): Promise<AccountModel> {
     const accountCollection = await mongoHelper.getCollection('accounts');
-
-    if (!accountCollection) throw new Error('COLLECTION_NOT_FOUND');
 
     await accountCollection.insertOne(accountData);
 

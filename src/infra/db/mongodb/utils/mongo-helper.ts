@@ -37,14 +37,18 @@ export class MongoHelper {
     }
   }
 
-  async getCollection(name: string): Promise<Collection | undefined> {
+  async getCollection(name: string): Promise<Collection> {
     if (!this.client) {
       await this.connect(this.uri);
     }
 
     if (this.client) {
-      return this.client.db().collection(name);
+      const collection = this.client.db().collection(name);
+
+      return collection;
     }
+
+    throw new Error('MISSING_MONGO_DB_CLIENT');
   }
 
   objectId(id: string) {

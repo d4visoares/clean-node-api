@@ -86,12 +86,14 @@ describe('Account Mongo Repository', () => {
     expect(account?.accessToken).toBe('any_token');
   });
 
-  test('Should throws if mongoHelper get collection returns undefined', async () => {
+  test('Should throws if mongoHelper get collection throws', async () => {
     const sut = makeSut();
 
     jest
       .spyOn(mongoHelper, 'getCollection')
-      .mockReturnValueOnce(new Promise((resolve) => resolve(undefined)));
+      .mockReturnValueOnce(
+        new Promise((_, reject) => reject(new Error('MISSING_COLLECTION')))
+      );
 
     const promise = sut.add({
       name: 'valid_name',
