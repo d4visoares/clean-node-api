@@ -1,4 +1,4 @@
-import { Collection, MongoClient } from 'mongodb';
+import { Collection, MongoClient, ObjectId } from 'mongodb';
 
 import { MONGO } from '../../../../utils/constants';
 
@@ -45,6 +45,10 @@ export class MongoHelper {
     if (this.client) {
       return this.client.db().collection(name);
     }
+  }
+
+  objectId(id: string) {
+    return new ObjectId(id);
   }
 
   map(collection: any): any {
