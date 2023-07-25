@@ -60,12 +60,30 @@ describe('Account Mongo Repository', () => {
     expect(account?.password).toBe('valid_password');
   });
 
-  test('Should return null if loadByEmail fail', async () => {
+  test('Should return null if loadByEmail fails', async () => {
     const sut = makeSut();
 
     const account = await sut.loadByEmail('valid_email@mail.com');
 
     expect(account).toBeFalsy();
+  });
+
+  test('Should update the account accessToken on updateAccessToken success', async () => {
+    const sut = makeSut();
+
+    const res = await accountCollection?.insertOne({
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password',
+    });
+
+    const insertedId = res?.insertedId?.toString() as string;
+
+    await sut.updateAccessToken(insertedId, 'any_token');
+    const account = await accountCollection?.findOne({ _id: res?.insertedId });
+
+    expect(account).toBeTruthy();
+    expect(account?.accessToken).toBe('any_token');
   });
 
   test('Should throws if mongoHelper get collection returns undefined', async () => {
