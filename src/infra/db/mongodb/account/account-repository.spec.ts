@@ -60,6 +60,14 @@ describe('Account Mongo Repository', () => {
     expect(account?.password).toBe('valid_password');
   });
 
+  test('Should return null if loadByEmail fail', async () => {
+    const sut = makeSut();
+
+    const account = await sut.loadByEmail('valid_email@mail.com');
+
+    expect(account).toBeFalsy();
+  });
+
   test('Should throws if mongoHelper get collection returns undefined', async () => {
     const sut = makeSut();
 
