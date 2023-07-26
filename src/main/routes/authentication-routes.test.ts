@@ -25,7 +25,7 @@ describe('Authentication Routes', () => {
   });
 
   describe('POST /signup', () => {
-    test('Should return 200 on signup', async () => {
+    it('Should return 200 on signup', async () => {
       await request(app)
         .post('/api/signup')
         .send({
@@ -39,7 +39,7 @@ describe('Authentication Routes', () => {
   });
 
   describe('POST /login', () => {
-    test('Should return 200 on login', async () => {
+    it('Should return 200 on login', async () => {
       const SALT = 12;
 
       const password = await hash('123', SALT);
@@ -57,6 +57,16 @@ describe('Authentication Routes', () => {
           password: '123',
         })
         .expect(200);
+    });
+
+    it('Should return 401 on login fails', async () => {
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'davi@mail.com',
+          password: '123',
+        })
+        .expect(401);
     });
   });
 });
